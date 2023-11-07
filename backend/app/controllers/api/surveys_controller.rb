@@ -1,8 +1,8 @@
 class Api::SurveysController < ApplicationController
 
     def index
-        @surveys = Survey.all
-        render json: @surveys, include: [:question]
+        @surveys = Survey.includes(questions: :choices).all
+        render json: @surveys, include: { questions: { include: :choices } }
     end
 
     def show
