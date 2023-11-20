@@ -1,0 +1,112 @@
+/* Estilos para la barra superior */
+.topbar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Estilos para la lista de encuestas */
+  .survey-list {
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .survey-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .survey-item h2 {
+    margin-top: 0;
+  }
+  
+  /* Botón para crear una nueva encuesta */
+  .new-survey-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .new-survey-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Estilos para la página de creación de encuestas */
+  .survey-create {
+    padding: 20px;
+  }
+  
+  .survey-create input,
+  .survey-create .ant-input-affix-wrapper,
+  .survey-create .ant-input-textarea-wrapper {
+    margin-bottom: 10px;
+  }
+  
+  /* Botón para alternar el tipo de pregunta */
+  .switch-btn {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  /* Botón para agregar una nueva pregunta */
+  .add-question-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .add-question-btn:hover {
+    background-color: #0069d9;
+  }
+  
+  /* Botón para crear la encuesta */
+  .create-survey-btn {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .create-survey-btn:hover {
+    background-color: #e0a800;
+  }
+  
+  /* Estilos adicionales para los elementos dentro de survey-create */
+  .question-container {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .choice-container {
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  
+  /* Estilos para los botones de agregar */
+  .add-btn {
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
