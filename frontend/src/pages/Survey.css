@@ -1,112 +1,162 @@
-/* Estilos para la barra superior */
 .topbar {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  /* Estilos para la lista de encuestas */
-  .survey-list {
-    padding: 20px;
-    background-color: #f0f0f0;
-  }
-  
-  .survey-item {
-    background-color: white;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 5px;
-  }
-  
-  .survey-item h2 {
-    margin-top: 0;
-  }
-  
-  /* Botón para crear una nueva encuesta */
-  .new-survey-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .new-survey-btn:hover {
-    background-color: #218838;
-  }
-  
-  /* Estilos para la página de creación de encuestas */
-  .survey-create {
-    padding: 20px;
-  }
-  
-  .survey-create input,
-  .survey-create .ant-input-affix-wrapper,
-  .survey-create .ant-input-textarea-wrapper {
-    margin-bottom: 10px;
-  }
-  
-  /* Botón para alternar el tipo de pregunta */
-  .switch-btn {
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  
-  /* Botón para agregar una nueva pregunta */
-  .add-question-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  .add-question-btn:hover {
-    background-color: #0069d9;
-  }
-  
-  /* Botón para crear la encuesta */
-  .create-survey-btn {
-    background-color: #ffc107;
-    color: black;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .create-survey-btn:hover {
-    background-color: #e0a800;
-  }
-  
-  /* Estilos adicionales para los elementos dentro de survey-create */
-  .question-container {
-    background-color: #e9ecef;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .choice-container {
-    margin-left: 20px;
-    margin-top: 10px;
-  }
-  
-  /* Estilos para los botones de agregar */
-  .add-btn {
-    margin-top: 10px;
-    cursor: pointer;
-  }
-  
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.survey-list {
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.survey-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.survey-item h2 {
+  margin-top: 0;
+}
+
+.description-textbox{
+  margin-bottom: 15px;
+}
+
+.new-survey-btn, .create-survey-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.new-survey-btn:hover {
+  background-color: #218838;
+}
+
+.create-survey-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.create-survey-btn:hover {
+  background-color: #e0a800;
+}
+
+.survey-create {
+  padding: 20px;
+}
+
+.survey-create input, .survey-create .ant-input-affix-wrapper, .survey-create .ant-input-textarea-wrapper, .survey-create button {
+  margin-bottom: 15px;
+}
+
+.switch-btn, .add-question-btn, .remove-btn {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.add-question-btn {
+  background-color: #ebebeb;
+  color: rgb(28, 28, 28);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.add-question-btn:hover {
+  background-color: #b5b5b5;
+}
+
+.question-container {
+  background-color: #e9ecef;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.choice-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.choice-container input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.question-header .ant-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.question-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.remove-btn:hover {
+  background-color: #c82333;
+}
+.create-survey-button {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 97.5%;
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.create-survey-button:hover {
+  background-color: #40a9ff;
+}
+.survey-create {
+  padding-bottom: 60px;
+}
