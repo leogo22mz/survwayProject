@@ -1,23 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Survey.css'; // Asume que tienes este archivo CSS con tus estilos
+import surveyService from '../services/surveyService';
+import './Survey.css';
+
+interface Survey {
+  id: number;
+  title: string;
+  description: string;
+}
 
 function SurveyList() {
+  const [surveys, setSurveys] = useState<Survey[]>([]); // Usando el tipo definido
   let navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchSurveys = async () => {
+      try {
+        const surveysData = await surveyService.getSurveys();
+        console.log('Surveys:', surveysData); // Imprime los datos recibidos
+        setSurveys(surveysData);
+      } catch (error) {
+        console.error('Error al obtener las encuestas', error);
+      }
+    };
+    
+
+    fetchSurveys();
+  }, []);
+
   const goToCreateSurvey = () => {
-    navigate('/newsurvey'); // Asegúrate de que esta ruta esté definida en tu enrutador
+    navigate('/newsurvey');
   };
 
   return (
     <div className="survey-list">
-      {/* Aquí iría la lista de encuestas, mapeando cada una a un elemento de la lista */}
-      {/* Ejemplo de un elemento de la lista: */}
-      <div className="survey-item">
-        <h2>Title of the Survey</h2>
-        <p>The Description of the Survey within the survey list</p>
-      </div>
-      {/* ... más elementos de la lista ... */}
+      {surveys.map(survey => (
+        <div key={survey.id} className="survey-item">
+          <h2>{survey.title}</h2>
+          <p>{survey.description}</p>
+        </div>
+      ))}
       <button onClick={goToCreateSurvey} className="new-survey-btn">
         NEW SURVEY
       </button>
@@ -26,4 +48,3 @@ function SurveyList() {
 }
 
 export default SurveyList;
-
