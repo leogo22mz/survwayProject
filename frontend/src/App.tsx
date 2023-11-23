@@ -11,7 +11,7 @@ function App() {
     <Router>
     <Routes>
       <Route path="/" element={<SurveyList />} />
-      <Route path="/survey" element={<SurveyInfo />} />
+      <Route path="/survey/:id" element={<SurveyInfo />} />
       <Route path="/newsurvey" element={<SurveyCreate />} />
     </Routes>
   </Router>

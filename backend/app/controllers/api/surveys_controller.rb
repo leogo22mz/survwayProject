@@ -7,8 +7,10 @@ class Api::SurveysController < ApplicationController
     end
 
     def show
-        render json: @survey
+        @survey = Survey.includes(questions: :choices).find(params[:id])
+        render json: @survey, include: { questions: { include: :choices } }
     end
+      
 
     def create
         @survey = Survey.new(survey_params)
@@ -28,8 +30,10 @@ class Api::SurveysController < ApplicationController
     end
 
     def destroy
-        @survey.destroy
-    end
+        survey = Survey.find(params[:id])
+        survey.destroy
+        head :no_content
+      end
 
 private
 
@@ -38,12 +42,11 @@ private
     end
 
     def set_survey
-        @survey = Survey.find(params[:id])
+        @survey = Survey.includes(questions: :choices).find(params[:id])
     end
 
     def survey_params
         params.require(:survey).permit(:title, :description, :created_by, questions_attributes: [:content, :question_type, choices_attributes: [:content]])
       end
-      
-    
-end
+
+    end

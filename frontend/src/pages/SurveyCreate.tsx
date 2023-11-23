@@ -111,7 +111,7 @@ const SurveyCreate: React.FC = () => {
   return (
     <div className="survey-create">
       <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
-      <Input.TextArea placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
+      <Input.TextArea className="description-textbox" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
       {questions.map((question, qIndex) => (
         <div key={qIndex} className="question-container">
           <div className="question-header">
