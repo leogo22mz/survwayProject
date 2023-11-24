@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Menu, Dropdown } from 'antd';
+import { MoreOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
-import { DeleteOutlined } from '@ant-design/icons';
 import './Survey.css';
 
 interface Survey {
@@ -12,7 +13,8 @@ interface Survey {
 
 function SurveyList() {
   const [surveys, setSurveys] = useState<Survey[]>([]);
-  let navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSurveys = async () => {
@@ -23,7 +25,6 @@ function SurveyList() {
         console.error('Error al obtener las encuestas', error);
       }
     };
-
     fetchSurveys();
   }, []);
 
@@ -35,34 +36,65 @@ function SurveyList() {
     navigate(`/survey/${id}`);
   };
 
-  const handleDelete = async (id: number, event: React.MouseEvent) => {
-    event.stopPropagation(); // Previene la navegación al hacer clic en el icono
+  const handleDelete = async (surveyId: number) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta encuesta?")) {
       try {
-        await surveyService.deleteSurvey(id); // Llama a la función de eliminación
-        setSurveys(surveys.filter(survey => survey.id !== id)); // Actualiza el estado para reflejar la eliminación
+        await surveyService.deleteSurvey(surveyId);
+        setSurveys(surveys.filter(survey => survey.id !== surveyId));
       } catch (error) {
         console.error('Error al eliminar la encuesta', error);
       }
     }
   };
-  
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const menu = (surveyId: number) => (
+    <Menu>
+      <Menu.Item key="1" icon={<EditOutlined />} onClick={() => console.log('Modificar')}>
+        Modificar
+      </Menu.Item>
+      <Menu.Item key="2" icon={<DeleteOutlined />} onClick={() => handleDelete(surveyId)}>
+        Eliminar
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
-    <div className="survey-list">
-      {surveys.map(survey => (
-        <div key={survey.id} className="survey-item" onClick={() => goToSurveyInfo(survey.id)}>
-          <h2>{survey.title}</h2>
-          <p>{survey.description}</p>
-          <DeleteOutlined 
-  onClick={(e) => handleDelete(survey.id, e)}
-  className="delete-icon"
-/>
-        </div>
-      ))}
-      <button onClick={goToCreateSurvey} className="new-survey-btn">
-        NEW SURVEY
+    <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
+      <button className="menu-toggle" onClick={toggleMenu}>
+        ☰
       </button>
+
+      <div className="sidebar">
+        {/* Contenido del menú lateral aquí */}
+        <ul>
+          <li>Chat 1</li>
+          <li>Chat 2</li>
+          {/* Más chats */}
+        </ul>
+      </div>
+
+      <div className="content">
+        <button onClick={goToCreateSurvey} className="new-survey-btn">
+          NEW SURVEY
+        </button><br />
+        {surveys.map(survey => (
+          <div key={survey.id} className="survey-item">
+            <div className="survey-content" onClick={() => goToSurveyInfo(survey.id)}>
+              <h2>{survey.title}</h2>
+              <p>{survey.description}</p>
+            </div>
+            <Dropdown overlay={menu(survey.id)} trigger={['click']}>
+              <span className="action-icon-container">
+                <MoreOutlined className="action-icon" />
+              </span>
+            </Dropdown>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

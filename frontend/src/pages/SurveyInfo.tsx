@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
-
 
 interface Choice {
   id: number;
@@ -24,6 +24,7 @@ interface SurveyDetail {
 function SurveyInfo() {
   const { id } = useParams<{ id: string }>();
   const [survey, setSurvey] = useState<SurveyDetail | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSurvey = async () => {
@@ -36,10 +37,25 @@ function SurveyInfo() {
         }
       }
     };
-  
+
     fetchSurvey();
   }, [id]);
-  
+
+  const handleEdit = () => {
+    // Aquí la lógica para editar la encuesta
+    console.log("Editar encuesta", id);
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar esta encuesta?")) {
+      try {
+        await surveyService.deleteSurvey(id);
+        navigate('/'); // Redirige al usuario después de eliminar la encuesta
+      } catch (error) {
+        console.error('Error al eliminar la encuesta', error);
+      }
+    }
+  };
 
   if (!survey) {
     return <div className="loading">Loading...</div>;
@@ -47,7 +63,13 @@ function SurveyInfo() {
 
   return (
     <div className="survey-info">
-      <h2>{survey.title}</h2>
+      <div className="survey-header">
+        <h2>{survey.title}</h2>
+        <div className="survey-actions">
+          <EditOutlined onClick={handleEdit} />
+          <DeleteOutlined onClick={handleDelete} />
+        </div>
+      </div>
       <p>{survey.description}</p>
       {survey.questions.map((question, index) => (
         <div key={question.id} className="question">
@@ -64,8 +86,7 @@ function SurveyInfo() {
               ))}
             </ul>
           ) : (
-            // Mostrar un área de texto para preguntas sin opciones
-            <textarea  disabled />
+            <textarea disabled />
           )}
         </div>
       ))}
