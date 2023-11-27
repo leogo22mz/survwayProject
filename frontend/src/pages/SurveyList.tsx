@@ -64,20 +64,17 @@ function SurveyList() {
 
   return (
     <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
-      <button className="menu-toggle" onClick={toggleMenu}>
-        ☰
-      </button>
-
+      <div className="topbar">
+        <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+      </div>
       <div className="sidebar">
-        {/* Contenido del menú lateral aquí */}
         <ul>
           <li>Chat 1</li>
           <li>Chat 2</li>
-          {/* Más chats */}
         </ul>
       </div>
-
       <div className="content">
+        <br/>
         <button onClick={goToCreateSurvey} className="new-survey-btn">
           NEW SURVEY
         </button><br />

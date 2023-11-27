@@ -27,8 +27,12 @@ const SurveyCreate: React.FC = () => {
       choices: [],
     },
   ]);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const endOfListRef = useRef<HTMLDivElement>(null);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const toggleQuestionType = (index: number) => {
     setQuestions(
@@ -98,7 +102,7 @@ const SurveyCreate: React.FC = () => {
         }))
       }
     };
-  
+
     try {
       const response = await surveyService.createSurvey(surveyData);
       console.log('Encuesta creada con éxito:', response);
@@ -106,39 +110,51 @@ const SurveyCreate: React.FC = () => {
       console.error('Error al enviar la encuesta:', error);
     }
   };
-  
 
   return (
     <div className="survey-create">
-      <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
-      <Input.TextArea className="description-textbox" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
-      {questions.map((question, qIndex) => (
-        <div key={qIndex} className="question-container">
-          <div className="question-header">
-            <Input placeholder="Question Content" value={question.content} onChange={e => updateQuestionContent(qIndex, e.target.value)} />
-            <div className="question-controls">
-              <Switch checkedChildren="choice" unCheckedChildren="text" checked={question.questionType === 'choice'} onChange={() => toggleQuestionType(qIndex)} />
-              <Tooltip title="Delete Question">
-                <DeleteFilled onClick={() => removeQuestion(qIndex)} className="delete-icon" />
-              </Tooltip>
+      <div className="topbar">
+        <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+      </div>
+      <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
+        {/* Contenido del menú lateral aquí */}
+        <ul>
+          <li>Chat 1</li>
+          <li>Chat 2</li>
+          {/* Más chats */}
+        </ul>
+      </div>
+      <div className="content">
+        <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
+        <Input.TextArea className="description-textbox" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
+        {questions.map((question, qIndex) => (
+          <div key={qIndex} className="question-container">
+            <div className="question-header">
+              <Input placeholder="Question Content" value={question.content} onChange={e => updateQuestionContent(qIndex, e.target.value)} />
+              <div className="question-controls">
+                <Switch checkedChildren="choice" unCheckedChildren="text" checked={question.questionType === 'choice'} onChange={() => toggleQuestionType(qIndex)} />
+                <Tooltip title="Delete Question">
+                  <DeleteFilled onClick={() => removeQuestion(qIndex)} className="delete-icon" />
+                </Tooltip>
+              </div>
             </div>
+            {question.questionType === 'choice' && question.choices.map((choice, cIndex) => (
+              <div key={cIndex} className="choice-container">
+                <Input placeholder="Choice Content" value={choice.content} onChange={e => updateChoiceContent(qIndex, cIndex, e.target.value)} />
+                <Tooltip title="Delete Choice">
+                  <DeleteOutlined onClick={() => removeChoiceFromQuestion(qIndex, cIndex)} className="delete-icon" />
+                </Tooltip>
+              </div>
+            ))}
+            {question.questionType === 'choice' && <Button onClick={() => addChoiceToQuestion(qIndex)}>+ Add Choice</Button>}
           </div>
-          {question.questionType === 'choice' && question.choices.map((choice, cIndex) => (
-            <div key={cIndex} className="choice-container">
-              <Input placeholder="Choice Content" value={choice.content} onChange={e => updateChoiceContent(qIndex, cIndex, e.target.value)} />
-              <Tooltip title="Delete Choice">
-                <DeleteOutlined onClick={() => removeChoiceFromQuestion(qIndex, cIndex)} className="delete-icon" />
-              </Tooltip>
-            </div>
-          ))}
-          {question.questionType === 'choice' && <Button onClick={() => addChoiceToQuestion(qIndex)}>+ Add Choice</Button>}
-        </div>
-      ))}
-      <Tooltip title="New Question">
-        <Button className="add-question-btn" onClick={addQuestion}>+</Button>
-      </Tooltip>
-      <Button onClick={submitSurvey} className="create-survey-button">Create Survey</Button>
-      <div ref={endOfListRef}></div>
+        ))}
+        <Tooltip title="New Question">
+          <Button className="add-question-btn" onClick={addQuestion}>+</Button>
+        </Tooltip>
+        <Button onClick={submitSurvey} className="create-survey-button">Create Survey</Button>
+        <div ref={endOfListRef}></div>
+      </div>
     </div>
   );
 };

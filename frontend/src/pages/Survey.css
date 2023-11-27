@@ -330,3 +330,144 @@
   position: absolute;
   z-index: 2;
 }
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #686868;
+  color: white;
+  padding: 10px;
+  z-index: 1001;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+}
+
+.menu-toggle {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Survey.css */
+
+/* Estilos comunes */
+.topbar {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 1001;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.menu-toggle {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar {
+  width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+  background-color: #f3f3f3;
+  overflow-y: auto;
+}
+
+.app-container.menu-open .sidebar {
+  transform: translateX(0);
+}
+
+.content {
+  flex-grow: 1;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+}
+
+.app-container:not(.menu-open) .content {
+  margin-left: 0;
+}
+
+/* Estilos específicos de SurveyInfo */
+.survey-info {
+  margin-top: 50px; /* Ajuste para no quedar detrás de la barra superior */
+}
+
+.survey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.survey-actions {
+  display: flex;
+  gap: 30px;
+}
+
+.survey-info h2 {
+  color: #1890ff;
+  margin-bottom: 15px;
+}
+
+.question {
+  margin-top: 20px;
+  padding: 10px;
+  padding-left: 30px;
+  border-radius: 15px;
+  background-color: #f5f5f5;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.question:hover {
+  background-color: #e9ecef;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+.question h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.question ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.question li {
+  padding: 5px 0;
+}
+
+.question label {
+  display: flex;
+  align-items: center;
+}
+
+.question input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.question textarea {
+  width: 98%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 100px;
+}
