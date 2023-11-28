@@ -68,9 +68,11 @@ function SurveyList() {
         <button className="menu-toggle" onClick={toggleMenu}>☰</button>
       </div>
       <div className="sidebar">
-        <ul>
-          <li>Chat 1</li>
-          <li>Chat 2</li>
+        <ul className="sidebar-menu">
+        <br/><br/>
+          <li className="menu-item" onClick={() => navigate('/')}>Home</li>
+          <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
+          <li className="menu-item" onClick={() => {/* handle log out */}}>Log Out</li>
         </ul>
       </div>
       <div className="content">

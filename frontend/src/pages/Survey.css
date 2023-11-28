@@ -263,6 +263,8 @@
 
 .app-container {
   display: flex;
+  overflow: hidden; /* Añadido para evitar desbordamiento */
+
 }
 
 .menu-toggle {
@@ -274,13 +276,17 @@
 
 .sidebar {
   width: 250px;
-  height: 100vh;
+  position: fixed;
+  left: -250px; /* Inicialmente oculto */
+  top: 0;
+  bottom: 0;
+  transition: left 0.3s ease;
   background-color: #f3f3f3;
   overflow-y: auto;
-  transition: transform 0.3s ease;
-  transform: translateX(-100%);
 }
-
+.app-container.menu-open .sidebar {
+  left: 0; /* Muestra la sidebar */
+}
 .sidebar.open {
   transform: translateX(0);
 }
@@ -288,8 +294,10 @@
 .content {
   flex-grow: 1;
   padding: 20px;
+  margin-left: 250px; /* Espacio para la sidebar */
   transition: margin-left 0.3s ease;
 }
+
 
 @media screen and (min-width: 768px) {
   .content {
@@ -471,3 +479,25 @@
   border-radius: 5px;
   height: 100px;
 }
+/* Estilos existentes ... */
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 500;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-item:hover {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+/* Resto de tus estilos... */

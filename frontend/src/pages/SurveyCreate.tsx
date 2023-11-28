@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Input, Switch, Tooltip } from 'antd';
 import { DeleteOutlined, DeleteFilled } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Survey.css';
 
 interface Choice {
@@ -86,6 +87,7 @@ const SurveyCreate: React.FC = () => {
       setQuestions(questions.filter((_, qIndex) => qIndex !== questionIndex));
     }
   };
+  const navigate = useNavigate();
 
   const submitSurvey = async () => {
     const surveyData = {
@@ -112,20 +114,20 @@ const SurveyCreate: React.FC = () => {
   };
 
   return (
-    <div className="survey-create">
+    <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="topbar">
         <button className="menu-toggle" onClick={toggleMenu}>☰</button>
       </div>
-      <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
-        {/* Contenido del menú lateral aquí */}
-        <ul>
-          <li>Chat 1</li>
-          <li>Chat 2</li>
-          {/* Más chats */}
+      <div className="sidebar">
+        <br /><br />        
+        <ul className="sidebar-menu">
+          <li className="menu-item" onClick={() => navigate('/')}>Home</li>
+          <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
+          <li className="menu-item" onClick={() => {/* handle log out */ }}>Log Out</li>
         </ul>
       </div>
-      <div className="content">
-        <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
+      <div className="content"><br /><br />
+        <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} /><br /><br />
         <Input.TextArea className="description-textbox" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
         {questions.map((question, qIndex) => (
           <div key={qIndex} className="question-container">
