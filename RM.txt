@@ -1,0 +1,22 @@
+Surveys
+survey_id (PK)
+title
+description
+created_by
+created_at
+updated_at
+
+Questions
+question_id (PK)
+survey_id (FK)
+question_content
+question_type
+created_at
+updated_at
+
+Choices
+choice_id (PK)
+question_id (FK)
+choice_content
+created_at
+updated_at

@@ -53,11 +53,11 @@ function SurveyList() {
 
   const menu = (surveyId: number) => (
     <Menu>
-      <Menu.Item key="1" icon={<EditOutlined />} onClick={() => console.log('Modificar')}>
-        Modificar
+      <Menu.Item key="1" icon={<EditOutlined />} onClick={() => console.log('Modify')}>
+        Modify
       </Menu.Item>
       <Menu.Item key="2" icon={<DeleteOutlined />} onClick={() => handleDelete(surveyId)}>
-        Eliminar
+        Delete
       </Menu.Item>
     </Menu>
   );
