@@ -1,3 +1,3 @@
-class User < ApplicationRecord
-    has_secure_password
+class Users::SessionsController < Devise::SessionsController
+  respond_to :json
 end
