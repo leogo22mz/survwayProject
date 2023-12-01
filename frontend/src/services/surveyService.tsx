@@ -39,7 +39,16 @@ const deleteSurvey = async (id: any) => {
     throw error;
   }
 };
+const updateSurvey = async (id: string, surveyData: any) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/surveys/${id}`, surveyData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar la encuesta', error);
+    throw error;
+  }
+};
 
 export default {
-  createSurvey, getSurveys, getSurveyById, deleteSurvey
+  createSurvey,  getSurveys,  getSurveyById,  deleteSurvey,  updateSurvey 
 };

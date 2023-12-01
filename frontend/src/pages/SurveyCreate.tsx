@@ -94,7 +94,7 @@ const SurveyCreate: React.FC = () => {
       survey: {
         title: title,
         description: description,
-        created_by: "1", // Asegúrate de tener un valor válido aquí
+        created_by: "1", // *****************
         questions_attributes: questions.map(question => ({
           content: question.content,
           question_type: question.questionType,
@@ -108,11 +108,11 @@ const SurveyCreate: React.FC = () => {
     try {
       const response = await surveyService.createSurvey(surveyData);
       console.log('Encuesta creada con éxito:', response);
+      navigate('/');
     } catch (error) {
       console.error('Error al enviar la encuesta:', error);
     }
   };
-
   return (
     <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="topbar">

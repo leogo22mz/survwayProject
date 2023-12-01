@@ -17,13 +17,12 @@
 
 ---
 
-## Introducción
-SurvwayProject nace de la necesidad de recopilar y analizar datos de forma efectiva. Desarrollado para [Nombre de la Empresa], este proyecto es el núcleo de una solución integral de encuestas diseñada para facilitar la recopilación de datos y proporcionar insights valiosos.
+## Introducción y Origen del Proyecto
+Survway se define como el estilo que hemos encontrado a la hora de desarrollar un creador de encuestas.
 
-## Origen del Proyecto
-Este proyecto surge como respuesta a la necesidad de [Describir la necesidad]. Es una iniciativa que busca simplificar y optimizar el proceso de toma de decisiones para [Nombre de la Empresa].
+Este proyecto surge como respuesta a la intención de crear una herramienta fácil, rápida y eficaz con el objetivo de crear encuestas, de manera de que cualquier tipo de usuario pueda insertar los datos de su encuesta y producirlas de una manera estética.
 
-## Diagrama de Modelos de Datos
+## Diagrama de Modelos de Datos*
 Los modelos de datos se fundamentan en un exhaustivo análisis de las necesidades de información. Ver la sección [Documentación del Modelo de Datos](#documentación-del-modelo-de-datos) para detalles adicionales.
 
 ## Requisitos de Usuario

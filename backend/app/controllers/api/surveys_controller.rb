@@ -46,7 +46,8 @@ private
     end
 
     def survey_params
-        params.require(:survey).permit(:title, :description, :created_by, questions_attributes: [:content, :question_type, choices_attributes: [:content]])
+        params.require(:survey).permit(:title, :description, :created_by, questions_attributes: [:id, :content, :question_type, :_destroy, choices_attributes: [:id, :content, :_destroy]])
       end
+      
 
     end
