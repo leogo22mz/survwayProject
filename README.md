@@ -16,6 +16,36 @@
 - [Anexos](#anexos)
 
 ---
+# Instrucciones para iniciar el proyecto
+
+Este proyecto consta de dos partes principales: el backend y el frontend. A continuación, se detallan los pasos para iniciar cada uno de ellos.
+
+## Iniciar el Backend
+
+1. Abre la terminal de Ubuntu en el WSL de Windows.
+2. Navega hasta la ubicación del proyecto y entra en la carpeta `backend` utilizando el comando `cd`. Por ejemplo:
+   
+   ```bash
+   cd ruta/a/tu/proyecto/survwayProject/backend
+3. Inicia el servicio de la base de datos (PostgreSQL)
+   ```bash
+    sudo service postgresql start
+4. Inicia el servidor de rails
+   ```bash
+    rails s
+
+## Iniciar el Frontend
+
+1. Abre el proyecto con un IDE, como Visual Studio Code.
+2. Abre un terminal dentro del IDE (A mi me gusta usar GitBash).
+3. Navega hasta la carpeta 'frontend' con el comando 'cd':
+   ```bash
+   cd ruta/a/tu/proyecto/survwayProject/frontend
+3. Inicia el servidor de React:
+   ```bash
+    npm start
+
+
 
 ## Introducción y Origen del Proyecto
 Survway se define como el estilo que hemos encontrado a la hora de desarrollar un creador de encuestas.
