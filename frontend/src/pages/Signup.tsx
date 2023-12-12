@@ -9,6 +9,7 @@ function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const onFinish = async (values: any) => {
     setLoading(true);
@@ -33,7 +34,12 @@ function Register() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    message.success('Sesión cerrada exitosamente');
+    navigate('/');
+  };
   return (
     <div className={`register-container ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="topbar">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, Dropdown, Input } from 'antd';
+import { Menu, Dropdown, Input, message } from 'antd';
 import { MoreOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
 import './Survey.css';
@@ -16,9 +16,12 @@ function SurveyList() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const fetchSurveys = async () => {
+      const token = localStorage.getItem('token');
+      setIsAuthenticated(!!token);
       try {
         const surveysData = await surveyService.getSurveys();
         setSurveys(surveysData);
@@ -52,7 +55,7 @@ function SurveyList() {
 
   const handleModify = (surveyId: number) => {
     navigate(`/updatesurvey/${surveyId}`);
-  };  
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -60,7 +63,7 @@ function SurveyList() {
 
   const menu = (surveyId: number) => (
     <Menu>
-    <Menu.Item key="1" icon={<EditOutlined />} onClick={() => handleModify(surveyId)}>
+      <Menu.Item key="1" icon={<EditOutlined />} onClick={() => handleModify(surveyId)}>
         Modify
       </Menu.Item>
       <Menu.Item key="2" icon={<DeleteOutlined />} onClick={() => handleDelete(surveyId)}>
@@ -68,49 +71,55 @@ function SurveyList() {
       </Menu.Item>
     </Menu>
   );
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    message.success('Sesión cerrada exitosamente');
+    navigate('/');
+  };
 
   return (
     <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
-    <div className="topbar">
-      <button className="menu-toggle" onClick={toggleMenu}>☰</button>
-    </div>
-      
+      <div className="topbar">
+        <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+      </div>
       <div className="sidebar">
         <ul className="sidebar-menu">
-        <br/><br/>
+          <br /><br />
           <li className="menu-item" onClick={() => navigate('/')}>Home</li>
           <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-          <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>
-          <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
+          {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
         </ul>
       </div>
-      <div className="content">
-      <br/>
 
-      <button onClick={goToCreateSurvey} className="new-survey-btn">
-        NEW SURVEY
-      </button><br />
-      <Input 
-        type="text"
-        placeholder="Filter surveys..."
-        onChange={(e) => setSearchTerm(e.target.value)}
-      /><br/><br/>
-      {filteredSurveys.map(survey => (
-        <div key={survey.id} className="survey-item">
-          <div className="survey-content" onClick={() => goToSurveyInfo(survey.id)}>
-            <h2>{survey.title}</h2>
-            <p>{survey.description}</p>
+      <div className="content">
+        <br />
+
+        <button onClick={goToCreateSurvey} className="new-survey-btn">
+          NEW SURVEY
+        </button><br />
+        <Input
+          type="text"
+          placeholder="Filter surveys..."
+          onChange={(e) => setSearchTerm(e.target.value)}
+        /><br /><br />
+        {filteredSurveys.map(survey => (
+          <div key={survey.id} className="survey-item">
+            <div className="survey-content" onClick={() => goToSurveyInfo(survey.id)}>
+              <h2>{survey.title}</h2>
+              <p>{survey.description}</p>
+            </div>
+            <Dropdown overlay={menu(survey.id)} trigger={['click']}>
+              <span className="action-icon-container">
+                <MoreOutlined className="action-icon" />
+              </span>
+            </Dropdown>
           </div>
-          <Dropdown overlay={menu(survey.id)} trigger={['click']}>
-            <span className="action-icon-container">
-              <MoreOutlined className="action-icon" />
-            </span>
-          </Dropdown>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default SurveyList;
