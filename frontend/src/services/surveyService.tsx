@@ -12,15 +12,22 @@ const createSurvey = async (surveyData: any) => {
   }
 };
 
+
 const getSurveys = async () => {
+  const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
   try {
-    const response = await axios.get(`${API_BASE_URL}/surveys`);
+    const response = await axios.get(`${API_BASE_URL}/surveys`, {
+      headers: {
+        Authorization: `Bearer ${token}` // Incluir el token en la cabecera de autorización
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error al obtener las encuestas', error);
     throw error;
   }
 };
+
 const getSurveyById = async (id: string) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/surveys/${id}`);

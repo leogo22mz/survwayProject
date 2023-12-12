@@ -5,6 +5,7 @@ import SurveyInfo from './pages/SurveyInfo';
 import SurveyCreate from './pages/SurveyCreate';
 import SurveyUpdate from './pages/SurveyUpdate';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/newsurvey" element={<SurveyCreate />} />
       <Route path="/updatesurvey/:id" element={<SurveyUpdate />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
     </Routes>
   </Router>
   );

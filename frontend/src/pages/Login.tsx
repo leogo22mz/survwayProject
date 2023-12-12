@@ -1,20 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import './Login.css';
+
 function Login() {
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const onFinish = async (values: any) => {
+    setLoading(true);
+    try {
+      const response = await axios.post('http://localhost:3000/login', { 
+        user: {
+          email: values.email,
+          password: values.password
+        }
+      });
+      
+      localStorage.setItem('token', response.data.token);
+      navigate('/');
+      message.success('Inicio de sesión exitoso!');
+    } catch (error) {
+      console.error('Error de inicio de sesión', error);
+      message.error('Error al iniciar sesión');
+    }
+    setLoading(false);
+  };
   
-    const onFinish = (values: any) => {
-      setLoading(true);
-      console.log('Received values of form:', values);
-      // Aquí implementarías la lógica de inicio de sesión
-      // Por ejemplo, hacer una solicitud a tu API
-      setLoading(false);
-    };
-  
+
+
+
     return (
       <div className="login-container">
         <Form
@@ -24,7 +41,7 @@ function Login() {
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
+            name="email"
             rules={[{ required: true, message: 'Por favor, introduce tu nombre de usuario!' }]}
           >
             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nombre de usuario" />
