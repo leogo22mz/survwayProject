@@ -80,7 +80,8 @@ function SurveyList() {
         <br/><br/>
           <li className="menu-item" onClick={() => navigate('/')}>Home</li>
           <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-          <li className="menu-item" onClick={() => {/* handle log out */}}>Log Out</li>
+          <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>
+          <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>
         </ul>
       </div>
       <div className="content">
