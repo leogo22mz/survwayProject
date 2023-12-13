@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Button, Input, Switch, Tooltip } from 'antd';
+import { Button, Input, Switch, Tooltip, message } from 'antd';
 import { DeleteOutlined, DeleteFilled } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -30,6 +30,7 @@ const SurveyCreate: React.FC = () => {
   ]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const endOfListRef = useRef<HTMLDivElement>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -88,7 +89,13 @@ const SurveyCreate: React.FC = () => {
     }
   };
   const navigate = useNavigate();
-
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    message.success('Sesión cerrada exitosamente');
+    navigate('/');
+    window.location.reload();
+  };
+  
   const submitSurvey = async () => {
     const surveyData = {
       survey: {
@@ -121,9 +128,12 @@ const SurveyCreate: React.FC = () => {
       <div className="sidebar">
         <br /><br />        
         <ul className="sidebar-menu">
+          <br /><br />
           <li className="menu-item" onClick={() => navigate('/')}>Home</li>
           <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-          <li className="menu-item" onClick={() => {/* handle log out */ }}>Log Out</li>
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
+          {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
         </ul>
       </div>
       <div className="content"><br /><br />

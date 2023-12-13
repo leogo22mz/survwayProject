@@ -8,10 +8,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   
-  # Rutas para el namespace API
   namespace :api do
     resources :surveys
-    # Las rutas de login y signup ya están manejadas por Devise, por lo que no necesitas definirlas aquí nuevamente
-    # Si necesitas rutas adicionales específicas para la API, puedes añadirlas aquí
   end
 end

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
 import './Survey.css';
+import { message } from 'antd';
 
 interface Choice {
   id: number;
@@ -27,6 +28,7 @@ function SurveyInfo() {
   const [survey, setSurvey] = useState<SurveyDetail | null>(null);
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const fetchSurvey = async () => {
@@ -42,6 +44,11 @@ function SurveyInfo() {
 
     fetchSurvey();
   }, [id]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -62,9 +69,12 @@ function SurveyInfo() {
     }
   };
 
-  if (!survey) {
-    return <div className="loading">Loading...</div>;
-  }
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    message.success('Sesión cerrada exitosamente');
+    navigate('/');
+    window.location.reload();
+  };
 
   return (
     <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
@@ -73,23 +83,25 @@ function SurveyInfo() {
       </div>
       <div className="sidebar">
         <ul className="sidebar-menu">
-        <br/><br/>
+          <br /><br />
           <li className="menu-item" onClick={() => navigate('/')}>Home</li>
           <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-          <li className="menu-item" onClick={() => {/* handle log out */}}>Log Out</li>
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
+          {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
         </ul>
       </div>
       <div className="content">
         <div className="survey-info">
           <div className="survey-header">
-            <h2 className="survey-title">{survey.title}</h2>
+            <h2 className="survey-title">{survey?.title}</h2>
             <div className="survey-actions">
               <EditOutlined onClick={handleEdit} />
-              <DeleteOutlined onClick={handleDelete} />
+              {isAuthenticated && <DeleteOutlined onClick={handleDelete} />}
             </div>
           </div>
-          <p className="survey-description">{survey.description}</p>
-          {survey.questions.map((question, index) => (
+          <p className="survey-description">{survey?.description}</p>
+          {survey?.questions.map((question, index) => (
             <div key={question.id} className="question">
               <h3 className="question-title">{index + 1}. {question.content}</h3>
               {question.choices.length > 0 ? (

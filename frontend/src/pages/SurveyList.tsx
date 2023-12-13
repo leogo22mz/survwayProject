@@ -75,6 +75,7 @@ function SurveyList() {
     localStorage.removeItem('token');
     message.success('Sesión cerrada exitosamente');
     navigate('/');
+    window.location.reload();
   };
 
   return (
@@ -110,11 +111,12 @@ function SurveyList() {
               <h2>{survey.title}</h2>
               <p>{survey.description}</p>
             </div>
-            <Dropdown overlay={menu(survey.id)} trigger={['click']}>
+            <Dropdown overlay={() => menu(survey.id)} trigger={['click']}>
               <span className="action-icon-container">
                 <MoreOutlined className="action-icon" />
               </span>
             </Dropdown>
+
           </div>
         ))}
       </div>

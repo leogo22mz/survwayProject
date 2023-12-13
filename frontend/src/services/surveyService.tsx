@@ -18,7 +18,7 @@ const getSurveys = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/surveys`, {
       headers: {
-        Authorization: `Bearer ${token}` // Incluir el token en la cabecera de autorización
+        Authorization: `Bearer ${token}`
       }
     });
     return response.data;
@@ -30,13 +30,19 @@ const getSurveys = async () => {
 
 const getSurveyById = async (id: string) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/surveys/${id}`);
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${API_BASE_URL}/surveys/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error al obtener la encuesta', error);
     throw error;
   }
 };
+
 
 const deleteSurvey = async (id: any) => {
   try {

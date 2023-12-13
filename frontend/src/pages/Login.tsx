@@ -9,7 +9,7 @@ function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -17,10 +17,11 @@ function Login() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setIsLoggedIn(false);
     message.success('Sesión cerrada exitosamente');
     navigate('/');
+    window.location.reload();
   };
+  
 
 const onFinish = async (values: any) => {
   setLoading(true);
@@ -34,7 +35,6 @@ const onFinish = async (values: any) => {
 
     localStorage.setItem('token', response.data.token);
 
-    setIsLoggedIn(true); 
     navigate('/');
     message.success('Inicio de sesión exitoso!');
   } catch (error) {
@@ -58,18 +58,13 @@ const onFinish = async (values: any) => {
       </div>
       
       <div className="sidebar">
-        <ul className="sidebar-menu">
-          <br/><br/>
+      <ul className="sidebar-menu">
+          <br /><br />
           <li className="menu-item" onClick={() => navigate('/')}>Home</li>
           <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-          {isLoggedIn ? (
-            <li className="menu-item" onClick={handleLogout}>Log Out</li>
-          ) : (
-            <>
-              <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>
-              <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>
-            </>
-          )}
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
+          {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
         </ul>
       </div>
 

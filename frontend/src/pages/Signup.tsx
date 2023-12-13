@@ -9,7 +9,8 @@ function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const onFinish = async (values: any) => {
     setLoading(true);
@@ -20,43 +21,53 @@ function Register() {
           password: values.password
         }
       });
-
-
-      localStorage.setItem('token', response.data.token);
-      message.success('Registro exitoso!');
-      navigate('/');
+  
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
+        message.success('Registro exitoso!');
+        setIsRegistered(true);
+        navigate('/');
+      } else {
+        message.success('Success!');
+      }
     } catch (error) {
       console.error('Error en el registro', error);
       message.error('Error al registrarse');
     }
     setLoading(false);
   };
+  
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setIsLoggedIn(false);
+    setIsRegistered(false);
     message.success('Sesión cerrada exitosamente');
     navigate('/');
+    window.location.reload();
   };
+
   return (
     <div className={`register-container ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="topbar">
-      <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+        <button className="menu-toggle" onClick={toggleMenu}>☰</button>
       </div>
       <div className="sidebar">
-        <ul className="sidebar-menu">
-        <br/><br/>
+      <ul className="sidebar-menu">
+          <br /><br />
           <li className="menu-item" onClick={() => navigate('/')}>Home</li>
           <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-          <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>
-          <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
+          {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
         </ul>
       </div>
       <div className="login-container">
-      <h1>Sign Up</h1><br/>
-      <Form
+        <h1>Sign Up</h1><br />
+        <Form
         name="register"
         className="login-form"
         initialValues={{ remember: true }}
@@ -81,9 +92,7 @@ function Register() {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item>
 
-        </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
@@ -92,7 +101,7 @@ function Register() {
           Already have an account? <a href="" onClick={() => navigate('/login')}>¡Log In now!</a>
         </Form.Item>
       </Form>
-    </div>
+      </div>
     </div>
   );
 }

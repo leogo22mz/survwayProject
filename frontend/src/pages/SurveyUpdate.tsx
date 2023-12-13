@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Input, Switch, Tooltip } from 'antd';
+import { Button, Input, Switch, Tooltip, message } from 'antd';
 import { DeleteOutlined, DeleteFilled } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -25,6 +25,7 @@ const SurveyUpdate: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const endOfListRef = useRef<HTMLDivElement>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         const loadSurvey = async () => {
@@ -101,7 +102,12 @@ const SurveyUpdate: React.FC = () => {
             setQuestions(questions.filter((_, qIndex) => qIndex !== questionIndex));
         }
     };
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        message.success('Sesión cerrada exitosamente');
+        navigate('/');
+        window.location.reload();
+      };
 
 
     const submitSurvey = async () => {
@@ -115,11 +121,11 @@ const SurveyUpdate: React.FC = () => {
                 title: title,
                 description: description,
                 questions_attributes: questions.map(question => ({
-                    id: question.id, // Asegúrate de incluir el id de la pregunta
+                    id: question.id,
                     content: question.content,
                     question_type: question.questionType,
                     choices_attributes: question.choices.map(choice => ({
-                        id: choice.id, // Incluye también el id de cada choice, si existe
+                        id: choice.id,
                         content: choice.content
                     }))
                 }))
@@ -141,12 +147,14 @@ const SurveyUpdate: React.FC = () => {
                 <button className="menu-toggle" onClick={toggleMenu}>☰</button>
             </div>
             <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
-                <ul className="sidebar-menu">
-                    <br /><br />
-                    <li className="menu-item" onClick={() => navigate('/')}>Home</li>
-                    <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-                    <li className="menu-item" onClick={() => {/* handle log out */ }}>Log Out</li>
-                </ul>
+            <ul className="sidebar-menu">
+          <br /><br />
+          <li className="menu-item" onClick={() => navigate('/')}>Home</li>
+          <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
+          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
+          {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
+        </ul>
             </div>
             <div className="content"><br /><br />
                 <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} /><br /><br />        
