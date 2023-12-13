@@ -26,6 +26,8 @@ const SurveyUpdate: React.FC = () => {
     const navigate = useNavigate();
     const endOfListRef = useRef<HTMLDivElement>(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [deletedQuestions, setDeletedQuestions] = useState<number[]>([]);
+    const [updatedQuestions, setUpdatedQuestions] = useState<Question[]>([]);
 
     useEffect(() => {
         const loadSurvey = async () => {
@@ -99,16 +101,19 @@ const SurveyUpdate: React.FC = () => {
 
     const removeQuestion = (questionIndex: number) => {
         if (window.confirm("Are you sure you want to remove this question?")) {
+            // Marcamos la pregunta como eliminada en el estado local
+            setDeletedQuestions([...deletedQuestions, questions[questionIndex].id]);
+            // Eliminamos la pregunta de la lista de preguntas
             setQuestions(questions.filter((_, qIndex) => qIndex !== questionIndex));
         }
     };
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         message.success('Sesión cerrada exitosamente');
         navigate('/');
         window.location.reload();
-      };
-
+    };
 
     const submitSurvey = async () => {
         if (typeof id === 'undefined') {
@@ -139,6 +144,18 @@ const SurveyUpdate: React.FC = () => {
         } catch (error) {
             console.error('Error al actualizar la encuesta:', error);
         }
+
+        for (const deletedQuestionId of deletedQuestions) {
+            try {
+                const surveyId = 1;
+                const questionId = 2;
+
+                await surveyService.deleteQuestion(surveyId, questionId);
+                console.log('Pregunta eliminada con éxito:', deletedQuestionId);
+            } catch (error) {
+                console.error('Error al eliminar la pregunta:', error);
+            }
+        }
     };
 
     return (
@@ -147,17 +164,18 @@ const SurveyUpdate: React.FC = () => {
                 <button className="menu-toggle" onClick={toggleMenu}>☰</button>
             </div>
             <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
-            <ul className="sidebar-menu">
-          <br /><br />
-          <li className="menu-item" onClick={() => navigate('/')}>Home</li>
-          <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
-          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
-          {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
-          {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
-        </ul>
+                <ul className="sidebar-menu">
+                    <br /><br />
+                    <li className="menu-item" onClick={() => navigate('/')}>Home</li>
+                    <li className="menu-item" onClick={() => navigate('/')}>My Surveys</li>
+                    {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/login')}>Log In</li>}
+                    {!isAuthenticated && <li className="menu-item" onClick={() => navigate('/signup')}>Sign Up</li>}
+                    {isAuthenticated && <li className="menu-item" onClick={handleLogout}>Log Out</li>}
+                </ul>
             </div>
-            <div className="content"><br /><br />
-                <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} /><br /><br />        
+            <div className="content">
+                <br /><br />
+                <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} /><br /><br />
                 <Input.TextArea className="description-textbox" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
                 {questions.map((question, qIndex) => (
                     <div key={qIndex} className="question-container">

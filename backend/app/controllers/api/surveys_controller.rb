@@ -33,9 +33,22 @@ class Api::SurveysController < ApplicationController
         survey = Survey.find(params[:id])
         survey.destroy
         head :no_content
-      end
+    end
+
+    def destroy_question
+        if @question
+          @question.destroy
+          head :no_content
+        else
+          render json: { error: 'Question not found' }, status: :not_found
+        end
+    end
 
 private
+
+    def set_question
+    @question = @survey.questions.find_by(id: params[:question_id])
+    end
 
     def set_survey
         @survey = Survey.find(params[:id])
@@ -47,7 +60,6 @@ private
 
     def survey_params
         params.require(:survey).permit(:title, :description, :created_by, questions_attributes: [:id, :content, :question_type, :_destroy, choices_attributes: [:id, :content, :_destroy]])
-      end
-      
+    end
 
     end

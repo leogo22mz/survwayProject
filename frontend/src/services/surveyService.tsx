@@ -4,17 +4,21 @@ const API_BASE_URL = 'http://127.0.0.1:3000/api';
 
 const createSurvey = async (surveyData: any) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/surveys`, surveyData);
+    const token = localStorage.getItem('token');
+    const response = await axios.post(`${API_BASE_URL}/surveys`, surveyData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
-    console.error('Error al crear la encuesta', error);
+    console.error('Error creating survey', error);
     throw error;
   }
 };
 
-
 const getSurveys = async () => {
-  const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
+  const token = localStorage.getItem('token');
   try {
     const response = await axios.get(`${API_BASE_URL}/surveys`, {
       headers: {
@@ -23,12 +27,12 @@ const getSurveys = async () => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error al obtener las encuestas', error);
+    console.error('Error fetching surveys', error);
     throw error;
   }
 };
 
-const getSurveyById = async (id: string) => {
+const getSurveyById = async (id: any) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.get(`${API_BASE_URL}/surveys/${id}`, {
@@ -38,30 +42,59 @@ const getSurveyById = async (id: string) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error al obtener la encuesta', error);
+    console.error('Error fetching survey', error);
     throw error;
   }
 };
-
 
 const deleteSurvey = async (id: any) => {
   try {
-    await axios.delete(`${API_BASE_URL}/surveys/${id}`);
+    const token = localStorage.getItem('token');
+    await axios.delete(`${API_BASE_URL}/surveys/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   } catch (error) {
-    console.error('Error al eliminar la encuesta', error);
+    console.error('Error deleting survey', error);
     throw error;
   }
 };
-const updateSurvey = async (id: string, surveyData: any) => {
+
+const updateSurvey = async (id: any, surveyData: any) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/surveys/${id}`, surveyData);
+    const token = localStorage.getItem('token');
+    const response = await axios.put(`${API_BASE_URL}/surveys/${id}`, surveyData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
-    console.error('Error al actualizar la encuesta', error);
+    console.error('Error updating survey', error);
+    throw error;
+  }
+};
+
+const deleteQuestion = async (surveyId: any, questionId: any) => {
+  try {
+    const token = localStorage.getItem('token');
+    await axios.delete(`${API_BASE_URL}/surveys/${surveyId}/questions/${questionId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    console.error('Error deleting question', error);
     throw error;
   }
 };
 
 export default {
-  createSurvey,  getSurveys,  getSurveyById,  deleteSurvey,  updateSurvey 
+  createSurvey,
+  getSurveys,
+  getSurveyById,
+  deleteSurvey,
+  updateSurvey,
+  deleteQuestion 
 };

@@ -54,9 +54,10 @@ function SurveyInfo() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleEdit = () => {
-    console.log("Editar encuesta", id);
+  const handleModify = (surveyId: number) => {
+    navigate(`/updatesurvey/${surveyId}`);
   };
+  
 
   const handleDelete = async () => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta encuesta?")) {
@@ -75,7 +76,6 @@ function SurveyInfo() {
     navigate('/');
     window.location.reload();
   };
-
   return (
     <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="topbar">
@@ -92,38 +92,41 @@ function SurveyInfo() {
         </ul>
       </div>
       <div className="content">
-        <div className="survey-info">
-          <div className="survey-header">
-            <h2 className="survey-title">{survey?.title}</h2>
-            <div className="survey-actions">
-              <EditOutlined onClick={handleEdit} />
-              {isAuthenticated && <DeleteOutlined onClick={handleDelete} />}
+        {survey ? (
+          <div className="survey-info">
+            <div className="survey-header">
+              <h2 className="survey-title">{survey.title}</h2>
+              <div className="survey-actions">
+                <EditOutlined onClick={() => handleModify(survey.id)} />
+                {isAuthenticated && <DeleteOutlined onClick={handleDelete} />}
+              </div>
             </div>
+            <p className="survey-description">{survey.description}</p>
+            {survey.questions.map((question, index) => (
+              <div key={question.id} className="question">
+                <h3 className="question-title">{index + 1}. {question.content}</h3>
+                {question.choices.length > 0 ? (
+                  <ul className="choice-list">
+                    {question.choices.map(choice => (
+                      <li key={choice.id} className="choice-item">
+                        <label className="choice-label">
+                          <input type="checkbox" disabled />
+                          {choice.content}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <textarea className="question-textarea" disabled />
+                )}
+              </div>
+            ))}
           </div>
-          <p className="survey-description">{survey?.description}</p>
-          {survey?.questions.map((question, index) => (
-            <div key={question.id} className="question">
-              <h3 className="question-title">{index + 1}. {question.content}</h3>
-              {question.choices.length > 0 ? (
-                <ul className="choice-list">
-                  {question.choices.map(choice => (
-                    <li key={choice.id} className="choice-item">
-                      <label className="choice-label">
-                        <input type="checkbox" disabled />
-                        {choice.content}
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <textarea className="question-textarea" disabled />
-              )}
-            </div>
-          ))}
-        </div>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );
-}
-
+        }
 export default SurveyInfo;

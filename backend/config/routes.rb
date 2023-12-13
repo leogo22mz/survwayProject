@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   }
   
   namespace :api do
-    resources :surveys
+    resources :surveys do
+      delete 'questions/:question_id', to: 'surveys#destroy_question', on: :member
+    end
   end
 end
