@@ -17,6 +17,6 @@ module Backend
     # config.action_mailbox.ingress = :exim
     # config.action_text.content_processor = :rich_text
 
-    config.api_only = true
+    config.api_only = false
   end
 end
