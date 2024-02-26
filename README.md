@@ -71,6 +71,19 @@ We define the general requirements that make up the skeleton of our system. Thes
 
 Here we describe the fundamental interactions with our system. For a more intuitive understanding, we include visual elements.
 
+## ERD
+
+![ER Diagram](ERD.png)
+
+## Relational Model
+
+![Relational Model](RM.txt)
+
+## Relational Model
+
+![UML Class Diagram](UML_CD.PNG)
+
+
 ## Interfaces and Usability
 
 The initial design, focused on usability, includes mockups and prototypes. After development, we provide a list with demonstrative images that apply the selected usability principles.
@@ -79,31 +92,41 @@ The initial design, focused on usability, includes mockups and prototypes. After
 
 I've been using ReactJS (TypeScript) for the Frontend and Ruby On Rails for my Backend. ActiveRecord is the ORM used on Survway
 
+## Technology Comparison
+
+The technology stack used in SurvwayProject has been compared with other popular technologies, including Spring Boot, Maven, MongoDB, Vue.js, Angular, Ionic, and Sequelize. While no direct comparison has been made within this project's documentation, it's worth noting the comfortable development environment provided by Ruby on Rails (RoR), especially for developers tackling their first RoR application.
+
+SurvwayProject is a survey creator application aiming to provide an easy, fast, and effective tool for users to create surveys. When considering the advantages and disadvantages of different types of applications like Progressive Web Apps (PWAs), Native apps, and Hybrid apps, each has its own set of characteristics:
+
+- **PWAs (Progressive Web Apps)**:
+  - *Advantages*: 
+    - Cross-platform compatibility, accessible via web browsers.
+    - No need for installation, reducing friction for users.
+    - Can work offline or with limited network connectivity.
+  - *Disadvantages*:
+    - Limited access to device features compared to native apps.
+    - Performance may not match that of native apps for complex functionalities.
+
+- **Native Apps**:
+  - *Advantages*:
+    - Access to full device capabilities, providing a rich user experience.
+    - Superior performance, especially for graphics-intensive applications.
+  - *Disadvantages*:
+    - Requires separate development for each platform (iOS, Android).
+    - Higher development costs and longer development time.
+
+- **Hybrid Apps**:
+  - *Advantages*:
+    - Single codebase for multiple platforms, reducing development time.
+    - Easier maintenance compared to separate native apps.
+  - *Disadvantages*:
+    - May not fully leverage platform-specific features.
+    - Performance may be slower compared to native apps.
+
+In the context of SurvwayProject, the choice of technology stack, including RoR for backend development and ReactJS for frontend, offers a balance between ease of development, performance, and accessibility. The familiarity of RoR for backend development, despite being the first time for many developers, contributes to a comfortable development experience. Additionally, leveraging ReactJS for the frontend ensures a responsive and dynamic user interface.
+
+
 ## Conclusions
 
 Working on this proyect was definitely a challenge. A great challenge I could face in the best way of learning new ways of programming with React and being "forced" to discover Ruby on Rails was a great oportunity.
-
-## Links and References
-
-All external resources and reference materials are available in the References section.
-
-## Annexes
-
-Additional information and documentary support can be consulted in the annexes.
-
-### Data Model Documentation
-
-[Description of the data model and its justification].
-
-### Requirements Engineering Process
-
-[Details on how the system requirements have been refined].
-
-### Visual Elements
-
-[Concept maps or diagrams illustrating the relationships and schema of the system].
-
-### Usability
-
-[List of usability rubric aspects that have been taken into account, with justifications and processes followed].
 
