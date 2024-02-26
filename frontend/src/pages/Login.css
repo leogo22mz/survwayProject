@@ -8,8 +8,27 @@
   }
   
   .login-form {
-    max-width: 300px;
+    width: 100%;
   }
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .avatar {
+    margin-left: auto; /* Esto mueve el avatar hacia la derecha */
+    margin-top: 50px; /* Ajusta la distancia hacia abajo */
+    padding: 10px;
+  }
+  
+  
+  .avatar .ant-avatar-image {
+    width: 32px; /* Ajusta el ancho del avatar */
+    height: 32px; /* Ajusta la altura del avatar */
+    font-size: 16px; /* Ajusta el tamaño del icono dentro del avatar (si es un icono de letra) */
+  }
+  
   
   .login-form-forgot {
     float: right;
@@ -22,4 +41,104 @@
   .site-form-item-icon {
     color: rgba(0, 0, 0, 0.25);
   }
+
+  .login-container {
+  display: flex;
+  overflow: hidden;
+}
+
+.register-container {
+  display: flex;
+  overflow: hidden;
+}
+
+.menu-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.sidebar {
+  width: 250px;
+  position: fixed;
+  left: -250px; /* Inicialmente oculto */
+  top: 0;
+  bottom: 0;
+  transition: left 0.3s ease;
+  background-color: #f3f3f3;
+  overflow-y: auto;
+}
+
+.login-container.menu-open .sidebar {
+  left: 0;
+}
+
+.register-container.menu-open .sidebar {
+  left: 0;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 250px; /* Espacio para la sidebar */
+  transition: margin-left 0.3s ease;
+}
+
+@media screen and (min-width: 768px) {
+  .content {
+    margin-left: 250px;
+  }
+}
+
+.login-container {
+  display: flex;
+}
+
+.register-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+  background-color: #f3f3f3;
+  overflow-y: auto;
+}
+
+.login-container.menu-open .sidebar {
+  transform: translateX(0);
+}
+
+.register-container.menu-open .sidebar {
+  transform: translateX(0);
+}
+
+.content {
+  flex-grow: 1;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+.login-container:not(.menu-open) .content {
+  margin-left: 0;
+}
+
+.register-container:not(.menu-open) .content {
+  margin-left: 0;
+}
+
+.menu-toggle {
+  position: absolute;
+  z-index: 2;
+}
 
