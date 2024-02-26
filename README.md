@@ -1,131 +1,163 @@
 # SurvwayProject
 
-## Índice
-- [Introducción](#introducción)
-- [Origen del Proyecto](#origen-del-proyecto)
-- [Diagrama de Modelos de Datos](#diagrama-de-modelos-de-datos)
-- [Requisitos de Usuario](#requisitos-de-usuario)
-- [Casos de Uso](#casos-de-uso)
-- [Interfaces y Usabilidad](#interfaces-y-usabilidad)
-- [Manuales](#manuales)
-- [Pila Tecnológica](#pila-tecnológica)
-- [Repositorios](#repositorios)
-- [Planificación](#planificación)
-- [Conclusiones](#conclusiones)
-- [Enlaces y Referencias](#enlaces-y-referencias)
-- [Anexos](#anexos)
+## Table of Contents
+- [Introduction](#introduction)
+- [Project Origin](#project-origin)
+- [Data Model Diagram](#data-model-diagram)
+- [User Requirements](#user-requirements)
+- [Use Cases](#use-cases)
+- [Interfaces and Usability](#interfaces-and-usability)
+- [Manuals](#manuals)
+- [Technology Stack](#technology-stack)
+- [Repositories](#repositories)
+- [Planning](#planning)
+- [Conclusions](#conclusions)
+- [Links and References](#links-and-references)
+- [Annexes](#annexes)
 
----
-# Instrucciones para iniciar el proyecto
+## Instructions to Start the Project
 
-Este proyecto consta de dos partes principales: el backend y el frontend. A continuación, se detallan los pasos para iniciar cada uno de ellos.
+This project consists of two main parts: the backend and the frontend. Below are the steps to start each of them.
 
-## Iniciar el Backend
+### Start the Backend
 
-1. Abre la terminal de Ubuntu en el WSL de Windows.
-2. Navega hasta la ubicación del proyecto y entra en la carpeta `backend` utilizando el comando `cd`:
-   
-   ```bash
-   cd ruta/a/tu/proyecto/survwayProject/backend
-3. Inicia el servicio de la base de datos (PostgreSQL)
-   ```bash
-   sudo service postgresql start
-4. Inicia el servidor de rails
-   ```bash
-   rails s
+1. Open the Ubuntu terminal in Windows Subsystem for Linux (WSL).
+2. Navigate to the project location and enter the backend folder using the `cd` command:
 
-## Iniciar el Frontend
+    ```bash
+    cd path/to/your/project/survwayProject/backend
+    ```
+3. Start the PostgreSQL database service:
 
-1. Abre el proyecto con un IDE, como Visual Studio Code.
-2. Abre un terminal dentro del IDE (A mi me gusta usar GitBash).
-3. Navega hasta la carpeta `frontend` con el comando `cd`:
-   ```bash
-   cd ruta/a/tu/proyecto/survwayProject/frontend
-3. Inicia el servidor de React:
-   ```bash
+    ```bash
+    sudo service postgresql start
+    ```
+4. Start the Rails server:
+
+    ```bash
+    rails s
+    ```
+
+### Start the Frontend
+
+1. Open the project with an IDE, such as Visual Studio Code.
+2. Open a terminal within the IDE (e.g., GitBash).
+3. Navigate to the frontend folder using the `cd` command:
+
+    ```bash
+    cd path/to/your/project/survwayProject/frontend
+    ```
+4. Start the React server:
+
+    ```bash
     npm start
+    ```
 
-## Introducción y Origen del Proyecto
-Survway se define como el estilo que hemos encontrado a la hora de desarrollar un creador de encuestas.
+## Introduction and Project Origin
 
-Este proyecto surge como respuesta a la intención de crear una herramienta fácil, rápida y eficaz con el objetivo de crear encuestas, de manera de que cualquier tipo de usuario pueda insertar los datos de su encuesta y producirlas de una manera estética.
+Survway is defined as the style we have found when developing a survey creator.
 
-## Diagrama de Modelos de Datos*
-Los modelos de datos se fundamentan en un exhaustivo análisis de las necesidades de información. Ver la sección [Documentación del Modelo de Datos](#documentación-del-modelo-de-datos) para detalles adicionales.
+This project arises in response to the intention of creating an easy, fast, and effective tool with the aim of creating surveys, so that any type of user can enter their survey data and produce them in an aesthetic way.
 
-## Requisitos de Usuario
-Definimos los requisitos generales que conforman el esqueleto de nuestro sistema. Estos se detallarán a medida que avancemos en el [proceso de ingeniería de requisitos](#proceso-de-ingeniería-de-requisitos).
+## Data Model Diagram
 
-## Casos de Uso
-Aquí se describen las interacciones fundamentales con nuestro sistema. Para una comprensión más intuitiva, incluimos [elementos visuales](#elementos-visuales).
+The data models are based on a thorough analysis of information needs. See the Data Model Documentation section for additional details.
 
-## Interfaces y Usabilidad
-El diseño inicial, enfocado en la [usabilidad](#usabilidad), incluye mockups y prototipos. Después del desarrollo, proporcionamos una lista con imágenes demostrativas que aplican los principios de usabilidad seleccionados.
+## User Requirements
 
-## Manuales
-- [Manual de Instalación para Desarrolladores](#manual-de-instalación-para-desarrolladores)
-- [Manual Técnico de Instalación](#manual-técnico-de-instalación)
-- [Manual de Usuario](#manual-de-usuario)
-- [Ayuda Dentro de la App](#ayuda-dentro-de-la-app)
+We define the general requirements that make up the skeleton of our system. These will be detailed as we progress through the requirements engineering process.
 
-## Pila Tecnológica
-Una [comparación detallada](#comparación-de-tecnologías) de las tecnologías empleadas se puede encontrar en esta sección.
+## Use Cases
 
-## Repositorios
-Mantenemos un enfoque organizado y transparente en nuestro [repositorio](#repositorio).
+Here we describe the fundamental interactions with our system. For a more intuitive understanding, we include visual elements.
 
-## Planificación
-Nuestra [planificación y organización](#planificación-y-organización) del proyecto se detalla aquí, garantizando un proceso sistemático y eficiente.
+## Interfaces and Usability
 
-## Conclusiones
-Reflexiones personales y [opiniones](#opiniones) sobre el proyecto y su desarrollo.
+The initial design, focused on usability, includes mockups and prototypes. After development, we provide a list with demonstrative images that apply the selected usability principles.
 
-## Enlaces y Referencias
-Todos los recursos externos y materiales de consulta están disponibles en la sección [Referencias](#referencias).
+## Manuals
 
-## Anexos
-Información adicional y soporte documental se puede consultar en los [anexos](#anexos).
+- [Developer Installation Manual](#developer-installation-manual)
+- [Technical Installation Manual](#technical-installation-manual)
+- [User Manual](#user-manual)
+- [In-App Help](#in-app-help)
 
----
+## Technology Stack
 
-### Documentación del Modelo de Datos
-[Descripción del modelo de datos y su justificación].
+A detailed comparison of the employed technologies can be found in this section.
 
-### Proceso de Ingeniería de Requisitos
-[Detalles sobre cómo se han ido refinando los requisitos del sistema].
+## Repositories
 
-### Elementos Visuales
-[Mapas conceptuales o diagramas que ilustran las relaciones y el esquema del sistema].
+We maintain an organized and transparent approach in our repository.
 
-### Usabilidad
-[Lista de aspectos de la rúbrica de usabilidad que se han tenido en cuenta, con justificaciones y procesos seguidos].
+## Planning
 
-### Manual de Instalación para Desarrolladores
-[Instrucciones detalladas para la instalación del entorno de desarrollo].
+Our project planning and organization is detailed here, ensuring a systematic and efficient process.
 
-### Manual Técnico de Instalación
-[Guía para técnicos que instalarán la aplicación en sistemas cliente].
+## Conclusions
 
-### Manual de Usuario
-[Instrucciones de uso para el usuario final].
+Personal reflections and opinions on the project and its development.
 
-### Ayuda Dentro de la App
-[Sección de ayuda integrada en la aplicación].
+## Links and References
 
-### Comparación de Tecnologías
-[Análisis de las tecnologías utilizadas y su justificación].
+All external resources and reference materials are available in the References section.
 
-### Repositorio
-[Información sobre cómo acceder y contribuir al repositorio del proyecto].
+## Annexes
 
-### Planificación y Organización
-[Descripción de la metodología de trabajo y la cronología del proyecto].
+Additional information and documentary support can be consulted in the annexes.
 
-### Opiniones
-[Comentarios y reflexiones personales sobre el proyecto].
+### Data Model Documentation
 
-### Referencias
-[Enlaces a documentación externa, artículos y recursos utilizados].
+[Description of the data model and its justification].
 
-### Anexos
-[Información suplementaria y documentación de apoyo].
+### Requirements Engineering Process
+
+[Details on how the system requirements have been refined].
+
+### Visual Elements
+
+[Concept maps or diagrams illustrating the relationships and schema of the system].
+
+### Usability
+
+[List of usability rubric aspects that have been taken into account, with justifications and processes followed].
+
+### Developer Installation Manual
+
+[Detailed instructions for setting up the development environment].
+
+### Technical Installation Manual
+
+[Guide for technicians installing the application on client systems].
+
+### User Manual
+
+[Usage instructions for the end user].
+
+### In-App Help
+
+[Section of integrated help within the application].
+
+### Technology Comparison
+
+[Analysis of the technologies used and their justification].
+
+### Repository
+
+[Information on how to access and contribute to the project repository].
+
+### Planning and Organization
+
+[Description of the work methodology and project timeline].
+
+### Conclusions
+
+[Personal comments and reflections on the project].
+
+### References
+
+[Links to external documentation, articles, and resources used].
+
+### Annexes
+
+[Supplementary information and supporting documentation].

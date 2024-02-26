@@ -39,7 +39,7 @@ const SurveyUpdate: React.FC = () => {
                 setDescription(surveyData.description);
                 setQuestions(surveyData.questions);
             } catch (error) {
-                console.error('Error al cargar la encuesta', error);
+                console.error('Error loading survey', error);
             }
         };
 
@@ -101,40 +101,34 @@ const SurveyUpdate: React.FC = () => {
 
     const removeQuestion = (questionIndex: number) => {
         if (window.confirm("Are you sure you want to remove this question?")) {
-            // Marcamos la pregunta como eliminada en el estado local
             setDeletedQuestions([...deletedQuestions, questions[questionIndex].id]);
-            // Eliminamos la pregunta de la lista de preguntas
             setQuestions(questions.filter((_, qIndex) => qIndex !== questionIndex));
         }
     };
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        message.success('Sesión cerrada exitosamente');
+        message.success('Logged out successfully');
         navigate('/');
         window.location.reload();
     };
 
     const submitSurvey = async () => {
-        // Verificar si hay al menos una pregunta
         if (questions.length === 0) {
             message.error('You must have at least one question');
             return;
         }
     
-        // Verificar si los campos requeridos están vacíos
         if (!title.trim() || !description.trim() || questions.some(question => !question.content.trim() || (question.questionType === 'choice' && question.choices.some(choice => !choice.content.trim())))) {
             message.error('You cannot leave any empty box');
             return; 
         }
     
-        // Verificar si hay opciones de pregunta "choice" vacías
         if (questions.some(question => question.questionType === 'choice' && question.choices.some(choice => !choice.content.trim()))) {
             message.error('You cannot leave any choice empty');
             return;
         }
     
-        // Verificar longitud máxima de los campos
         if (title.length > 100) {
             message.error('Title must be at most 100 characters long');
             return;
@@ -173,10 +167,10 @@ const SurveyUpdate: React.FC = () => {
     
         try {
             const response = await surveyService.updateSurvey(id, updatedSurveyData);
-            console.log('Encuesta actualizada con éxito:', response);
+            console.log('Survey updated successfully:', response);
             navigate('/');
         } catch (error) {
-            console.error('Error al actualizar la encuesta:', error);
+            console.error('Error updating survey:', error);
         }
     
         for (const deletedQuestionId of deletedQuestions) {
@@ -185,9 +179,9 @@ const SurveyUpdate: React.FC = () => {
                 const questionId = 2;
     
                 await surveyService.deleteQuestion(surveyId, questionId);
-                console.log('Pregunta eliminada con éxito:', deletedQuestionId);
+                console.log('Question deleted successfully:', deletedQuestionId);
             } catch (error) {
-                console.error('Error al eliminar la pregunta:', error);
+                console.error('Error deleting question:', error);
             }
         }
     };
