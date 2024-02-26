@@ -75,28 +75,13 @@ Here we describe the fundamental interactions with our system. For a more intuit
 
 The initial design, focused on usability, includes mockups and prototypes. After development, we provide a list with demonstrative images that apply the selected usability principles.
 
-## Manuals
-
-- [Developer Installation Manual](#developer-installation-manual)
-- [Technical Installation Manual](#technical-installation-manual)
-- [User Manual](#user-manual)
-- [In-App Help](#in-app-help)
-
 ## Technology Stack
 
-A detailed comparison of the employed technologies can be found in this section.
-
-## Repositories
-
-We maintain an organized and transparent approach in our repository.
-
-## Planning
-
-Our project planning and organization is detailed here, ensuring a systematic and efficient process.
+I've been using ReactJS (TypeScript) for the Frontend and Ruby On Rails for my Backend. ActiveRecord is the ORM used on Survway
 
 ## Conclusions
 
-Personal reflections and opinions on the project and its development.
+Working on this proyect was definitely a challenge. A great challenge I could face in the best way of learning new ways of programming with React and being "forced" to discover Ruby on Rails was a great oportunity.
 
 ## Links and References
 
@@ -122,42 +107,3 @@ Additional information and documentary support can be consulted in the annexes.
 
 [List of usability rubric aspects that have been taken into account, with justifications and processes followed].
 
-### Developer Installation Manual
-
-[Detailed instructions for setting up the development environment].
-
-### Technical Installation Manual
-
-[Guide for technicians installing the application on client systems].
-
-### User Manual
-
-[Usage instructions for the end user].
-
-### In-App Help
-
-[Section of integrated help within the application].
-
-### Technology Comparison
-
-[Analysis of the technologies used and their justification].
-
-### Repository
-
-[Information on how to access and contribute to the project repository].
-
-### Planning and Organization
-
-[Description of the work methodology and project timeline].
-
-### Conclusions
-
-[Personal comments and reflections on the project].
-
-### References
-
-[Links to external documentation, articles, and resources used].
-
-### Annexes
-
-[Supplementary information and supporting documentation].
