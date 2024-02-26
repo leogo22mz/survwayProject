@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
 import './Survey.css';
-import { message } from 'antd';
+import { Avatar, message } from 'antd';
 
 interface Choice {
   id: number;
@@ -78,9 +78,12 @@ function SurveyInfo() {
   };
   return (
     <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
-      <div className="topbar">
-        <button className="menu-toggle" onClick={toggleMenu}>☰</button>
-      </div>
+        <div className="topbar">
+          <div className='avatar'>
+            <Avatar src={localStorage.getItem('user_image')} size={64} shape="circle" />
+          </div>          
+          <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+        </div>
       <div className="sidebar">
         <ul className="sidebar-menu">
           <br /><br />

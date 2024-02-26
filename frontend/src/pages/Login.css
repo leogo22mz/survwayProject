@@ -17,16 +17,16 @@
   }
   
   .avatar {
-    margin-left: auto; /* Esto mueve el avatar hacia la derecha */
-    margin-top: 50px; /* Ajusta la distancia hacia abajo */
+    margin-left: auto; 
+    margin-top: 50px; 
     padding: 10px;
   }
   
   
   .avatar .ant-avatar-image {
-    width: 32px; /* Ajusta el ancho del avatar */
-    height: 32px; /* Ajusta la altura del avatar */
-    font-size: 16px; /* Ajusta el tamaño del icono dentro del avatar (si es un icono de letra) */
+    width: 32px; 
+    height: 32px;
+    font-size: 16px;
   }
   
   

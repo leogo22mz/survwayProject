@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Button, Input, Switch, Tooltip, message } from 'antd';
+import { Avatar, Button, Input, Switch, Tooltip, message } from 'antd';
 import { DeleteOutlined, DeleteFilled } from '@ant-design/icons';
 import surveyService from '../services/surveyService';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -97,34 +97,72 @@ const SurveyCreate: React.FC = () => {
   };
   
   const submitSurvey = async () => {
+    // Verificar si hay al menos una pregunta
+    if (questions.length === 0) {
+        message.error('You must have at least one question');
+        return;
+    }
+
+    // Verificar si los campos requeridos están vacíos
+    if (!title.trim() || !description.trim() || questions.some(question => !question.content.trim() || (question.questionType === 'choice' && question.choices.some(choice => !choice.content.trim())))) {
+        message.error('You cannot leave any empty box');
+        return; 
+    }
+
+    // Verificar la longitud máxima de los campos
+    if (title.length > 100) {
+        message.error('Title must be at most 100 characters long');
+        return;
+    }
+
+    if (description.length > 400) {
+        message.error('Description must be at most 400 characters long');
+        return;
+    }
+
+    if (questions.some(question => question.content.length > 100)) {
+        message.error('Question content must be at most 100 characters long');
+        return;
+    }
+
+    if (questions.some(question => question.questionType === 'choice' && question.choices.some(choice => choice.content.length > 40))) {
+        message.error('Choice content must be at most 40 characters long');
+        return;
+    }
+
     const surveyData = {
-      survey: {
-        title: title,
-        description: description,
-        created_by: "1", // *****************
-        questions_attributes: questions.map(question => ({
-          content: question.content,
-          question_type: question.questionType,
-          choices_attributes: question.choices.map(choice => ({
-            content: choice.content
-          }))
-        }))
-      }
+        survey: {
+            title: title,
+            description: description,
+            created_by: "1",
+            questions_attributes: questions.map(question => ({
+                content: question.content,
+                question_type: question.questionType,
+                choices_attributes: question.choices.map(choice => ({
+                    content: choice.content
+                }))
+            }))
+        }
     };
 
     try {
-      const response = await surveyService.createSurvey(surveyData);
-      console.log('Encuesta creada con éxito:', response);
-      navigate('/');
+        const response = await surveyService.createSurvey(surveyData);
+        console.log('Encuesta creada con éxito:', response);
+        navigate('/');
     } catch (error) {
-      console.error('Error al enviar la encuesta:', error);
+        console.error('Error al enviar la encuesta:', error);
     }
-  };
+};
+
+
   return (
     <div className={`app-container ${isMenuOpen ? 'menu-open' : ''}`}>
-      <div className="topbar">
-        <button className="menu-toggle" onClick={toggleMenu}>☰</button>
-      </div>
+        <div className="topbar">
+          <div className='avatar'>
+            <Avatar src={localStorage.getItem('user_image')} size={64} shape="circle" />
+          </div>          
+          <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+        </div>
       <div className="sidebar">
         <br /><br />        
         <ul className="sidebar-menu">
@@ -137,12 +175,12 @@ const SurveyCreate: React.FC = () => {
         </ul>
       </div>
       <div className="content"><br /><br />
-        <Input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} /><br /><br />
-        <Input.TextArea className="description-textbox" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
+        <Input placeholder="Title (max 100 characters)" value={title} onChange={e => setTitle(e.target.value)} maxLength={100} /><br /><br />
+        <Input.TextArea className="description-textbox" placeholder="Description (max 400 characters)" value={description} onChange={e => setDescription(e.target.value)} maxLength={400} />
         {questions.map((question, qIndex) => (
           <div key={qIndex} className="question-container">
             <div className="question-header">
-              <Input placeholder="Question Content" value={question.content} onChange={e => updateQuestionContent(qIndex, e.target.value)} />
+              <Input placeholder="Question Content (max 100 characters)" value={question.content} onChange={e => updateQuestionContent(qIndex, e.target.value)} maxLength={100} />
               <div className="question-controls">
                 <Switch checkedChildren="choice" unCheckedChildren="text" checked={question.questionType === 'choice'} onChange={() => toggleQuestionType(qIndex)} />
                 <Tooltip title="Delete Question">
@@ -152,7 +190,7 @@ const SurveyCreate: React.FC = () => {
             </div>
             {question.questionType === 'choice' && question.choices.map((choice, cIndex) => (
               <div key={cIndex} className="choice-container">
-                <Input placeholder="Choice Content" value={choice.content} onChange={e => updateChoiceContent(qIndex, cIndex, e.target.value)} />
+                <Input placeholder="Choice Content (max 40 characters)" value={choice.content} onChange={e => updateChoiceContent(qIndex, cIndex, e.target.value)} maxLength={40} />
                 <Tooltip title="Delete Choice">
                   <DeleteOutlined onClick={() => removeChoiceFromQuestion(qIndex, cIndex)} className="delete-icon" />
                 </Tooltip>

@@ -1,6 +1,6 @@
 import '../../pages/Login.css';
 import React, { useState } from 'react';
-import { Menu, Dropdown, Button, Input, Upload, message } from 'antd';
+import { Avatar, Dropdown, Button, Input, Upload, message } from 'antd';
 import AuthService from '../../services/AuthService/auth.service';
 import { useNavigate } from 'react-router-dom';
 
@@ -80,9 +80,12 @@ function SignUp() {
     <>
     
     <div className={`login-container ${isMenuOpen ? 'menu-open' : ''}`}>
-      <div className="topbar">
-        <button className="menu-toggle" onClick={toggleMenu}>☰</button>
-      </div>
+    <div className="topbar">
+          <div className='avatar'>
+            <Avatar src={localStorage.getItem('user_image')} size={64} shape="circle" />
+          </div>          
+          <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+        </div>
       <div className="sidebar">
         <ul className="sidebar-menu">
           <br /><br />
@@ -94,7 +97,7 @@ function SignUp() {
         </ul>
       </div>
         <form onSubmit={encodeUser} className='login-form'> {/* Reemplaza "form" por "login-form" */}
-          <h2>Registrarse</h2>
+          <h2>Sign Up</h2>
           <Upload
             name="avatar"
             listType="picture-circle"

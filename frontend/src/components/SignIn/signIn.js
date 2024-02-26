@@ -18,9 +18,9 @@ function SignIn() {
 
   const loadPage = (cond) => {
     if (cond) {
-      nav('/AdminPage');
+      nav('/');
     } else {
-      nav('/UserPage');
+      nav('/');
     };
   }
 
@@ -64,9 +64,7 @@ function SignIn() {
     <>
       <div className={`login-container ${isMenuOpen ? 'menu-open' : ''}`}>
         <div className="topbar">
-          <div className='avatar'>
-            <Avatar src={localStorage.getItem('user_image')} size={64} type="picture-circle" />
-          </div>          
+      
           <button className="menu-toggle" onClick={toggleMenu}>☰</button>
         </div>
         <div className="sidebar">
@@ -80,10 +78,10 @@ function SignIn() {
           </ul>
         </div>
         <form onSubmit={encodeUser} className='login-form'>
-          <h2>Iniciar sesion</h2>
+          <h2>Log In</h2>
           <Input id='email' onChange={changeData} value={user.email} type="email" placeholder="Escribe aqui tu correo" required /><br /><br />
           <Input id='password' onChange={changeData} value={user.password} minLength="6" type="password" placeholder="Escribe aqui tu contraseña" pattern="^\S.*\S$" required /><br /><br />
-          <Button type="primary" htmlType="submit" className="login-form-button">Enter</Button> {/* Reemplaza el estilo en línea por la clase "login-form-button" */}
+          <Button type="primary" htmlType="submit" className="login-form-button">Enter</Button> 
         </form>
       </div>
     </>
