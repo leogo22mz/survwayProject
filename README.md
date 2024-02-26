@@ -59,13 +59,6 @@ Survway is defined as the style we have found when developing a survey creator.
 
 This project arises in response to the intention of creating an easy, fast, and effective tool with the aim of creating surveys, so that any type of user can enter their survey data and produce them in an aesthetic way.
 
-## Data Model Diagram
-
-The data models are based on a thorough analysis of information needs. See the Data Model Documentation section for additional details.
-
-## User Requirements
-
-We define the general requirements that make up the skeleton of our system. These will be detailed as we progress through the requirements engineering process.
 
 ## Use Cases
 
